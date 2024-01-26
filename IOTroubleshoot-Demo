@@ -1,3 +1,5 @@
+https://techcommunity.microsoft.com/t5/sql-server-blog/tempdb-files-and-trace-flags-and-updates-oh-my/ba-p/385937
+
 Generate a load in primary server
 =============================================================================================================
 ...>diskspd.exe -b8K -d180000 -h -L -o1000 -t30 -r -w75 -c50G G:\Testdata\IO.dat > resultfile.txt
