@@ -1,0 +1,22 @@
+	· Before running the following commands, please create the folder c:\diag (command: md c:\diag) 
+	· System, Application, and Cluster Operational Event Logs (exported to CSV): 
+			o PowerShell: get-eventlog system | sort-object timegenerated | select-object timegenerated,entrytype,machinename,eventid,source,username,message | export-csv c:\diag\system.csv -notype 
+			o PowerShell: get-eventlog application | sort-object timegenerated | select-object timegenerated,entrytype,machinename,eventid,source,username,message | export-csv c:\diag\application.csv -notype 
+			o PowerShell: get-winevent -logname microsoft-windows-failoverclustering/operational | sort-object timeCreated | select-object timecreated, machinename, id, ContainerLog, LevelDisplayName, userid, message | export-csv c:\diag\failoverclustering-operational.csv -notype 
+	· SQL Server Error Logs: 
+			o Please copy the error logs for SQL Server and system_health Xevent files to C:\diag 
+			o Please copy the files physically (ERRORLOG, ERRORLOG.1 etc ) from the error log location rather than exporting it from SSMS 
+	· Cluster Logs: 
+			o PowerShell: Get-ClusterLog -Destination c:\diag\ 
+	· Cluster Registry Hive: 
+			o Command: reg save "HKEY_LOCAL_MACHINE\Cluster" c:\diag\cluster.hiv 
+	· List of installed Windows Updates and Hotfixes: 
+			o Command: wmic qfe list brief /format:texttablewsys >c:\diag\hotfix.txt 
+	· List of filter drivers: 
+			o Command: fltmc >c:\diag\fltmc.txt 
+			o Command: fltmc instances >>c:\diag\fltmc.txt 
+	· System Information: 
+			o Command: msinfo32 /nfo c:\diag\msinfo32.nfo 
+	· Compress the C:\Diag folder and upload it through the file upload link. 
+Steps are documented in below article as well. 
+https://microsoft.sharepoint.com/teams/CSSSQLTeam/SitePages/Manual-SDP-collection-steps.aspx
